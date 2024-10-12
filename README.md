@@ -11,6 +11,7 @@ The HTML to Markdown Converter is a web-based tool that allows users to convert 
 *   **Clipboard Integration:** Easily paste content from your clipboard and copy the Markdown output back to it.
 *   **Downloadable Output:** Save the converted Markdown as a `.md` file with the click of a button.
 *   **User-Friendly Interface:** Built using Tailwind CSS for a responsive and attractive layout.
+*   **HTML Encoder:** Access an HTML encoder tool for encoding HTML entities, providing additional functionality for users.
 
 ## Technologies Used
 
@@ -18,6 +19,8 @@ The HTML to Markdown Converter is a web-based tool that allows users to convert 
 *   **CSS (Tailwind CSS):** For styling and responsive design.
 *   **JavaScript:** For interactivity and conversion functionality.
 *   **Turndown:** A JavaScript library for converting HTML to Markdown.
+*   **Custom HTML Encoder:** Integration with an external encoder tool for encoding HTML entities.
+
 
 
 ### Prerequisites
