@@ -1,4 +1,4 @@
-# HTML to Markdown Converter
+# HTML to Markdown Encoder
 
 ## Description
 
