@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML TO Markdown</title>
     
-    <!-- Meta Tags for Icons -->
+
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     
-    <!-- Manifest Icons -->
+
     <link rel="manifest" href="/site.webmanifest">
     
-    <!-- Tailwind CSS -->
+ 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-    <!-- Turndown Script -->
+
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
     
     <style>
@@ -31,7 +31,7 @@
 <body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
     <header class="bg-gray-800 shadow p-4 text-center">
         <h1 class="text-2xl font-bold">HTML TO Markdown</h1>
-        <!-- GitHub Star Button -->
+
         <a href="https://github.com/sudo-self/html2md" target="_blank"
            class="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 rounded mb-4 flex items-center justify-center">
             <img src="https://img.icons8.com/ios-filled/20/ffffff/github.png" alt="GitHub Star" class="icon" />
@@ -52,30 +52,30 @@
     <li>eggs</li>
     <li>butter</li>
 </ol>
-<img src='/favicon.png' alt='favicon' width='20px" height='auto'></img>
+<img src='/favicon.png' alt='favicon' width='20px' height='auto'></img>
                 </textarea>
             </div>
 
             <div class="flex flex-col justify-center mx-4">
-                <!-- Paste Button -->
-                <button id="pasteButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
+           
+                <button id="pasteButton" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/paste.png" alt="Paste" class="icon" />
                     <span class="ml-2">Paste&nbsp;</span>
                 </button>
 
-                <!-- Copy Button -->
+           
                 <button id="copyButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/copy.png" alt="Copy" class="icon" />
                     <span class="ml-2">Copy&nbsp;</span>
                 </button>
 
-                <!-- Clear Button -->
+             
                 <button id="clearButton" class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/trash.png" alt="Clear" class="icon" />
                     <span class="ml-2">Clear&nbsp;</span>
                 </button>
 
-                <!-- Download Button -->
+          
                 <button id="downloadButton" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/download.png" alt="Download" class="icon" />
                     <span class="ml-2">Download</span>
@@ -89,8 +89,46 @@
         </div>
 
         <div class="mt-6 flex flex-wrap justify-between">
-            <!-- Additional Settings Here -->
-            <!-- Same as before for setting options like heading style, HR, bullet list marker, etc. -->
+  
+            <div class="mb-4">
+                <span class="block text-sm font-semibold mb-2">Heading Style</span>
+                <label class="inline-flex items-center mr-4">
+                    <input type="radio" name="headingStyle" value="atx" class="form-radio text-blue-600">
+                    <span class="ml-2">ATX</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="headingStyle" value="setext" class="form-radio text-blue-600">
+                    <span class="ml-2">Setext</span>
+                </label>
+            </div>
+
+            <div class="mb-4">
+                <span class="block text-sm font-semibold mb-2">Horizontal Rule</span>
+                <label class="inline-flex items-center mr-4">
+                    <input type="radio" name="hr" value="*" class="form-radio text-blue-600">
+                    <span class="ml-2">Asterisk (*)</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="hr" value="-" class="form-radio text-blue-600">
+                    <span class="ml-2">Dash (-)</span>
+                </label>
+            </div>
+
+            <div class="mb-4">
+                <span class="block text-sm font-semibold mb-2">Bullet List Marker</span>
+                <label class="inline-flex items-center mr-4">
+                    <input type="radio" name="bulletListMarker" value="*" class="form-radio text-blue-600">
+                    <span class="ml-2">Asterisk (*)</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="bulletListMarker" value="-" class="form-radio text-blue-600">
+                    <span class="ml-2">Dash (-)</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="bulletListMarker" value="+" class="form-radio text-blue-600">
+                    <span class="ml-2">Plus (+)</span>
+                </label>
+            </div>
         </div>
     </div>
     
@@ -99,66 +137,67 @@
     </footer>
 
     <script>
-        ;(function () {
-            var input = document.getElementById('input');
-            var output = document.getElementById('output');
-            var optionsForm = document.querySelectorAll('input[type="radio"]');
+    ;(function () {
+        var input = document.getElementById('input');
+        var output = document.getElementById('output');
+        var optionsForm = document.querySelectorAll('input[type="radio"]');
 
-            var turndownService = new window.TurndownService(options());
+     
+        var turndownService = new window.TurndownService(options());
 
-            input.addEventListener('input', update);
+   
+        setInitialOptions();
 
-            Array.from(optionsForm).forEach(function(radio) {
-                radio.addEventListener('change', function () {
-                    update();
-                });
+        input.addEventListener('input', update);
+
+        Array.from(optionsForm).forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                turndownService = new window.TurndownService(options());
+                update();
             });
+        });
 
-            update();
+        update();
 
-            // output
-            function update() {
-                output.value = turndownService.turndown(input.value);
-            }
-
-            //options
-            function options() {
-                var opts = {};
-                Array.from(optionsForm).forEach(function (input) {
-                    opts[input.name] = input.value;
-                });
-                return opts;
-            }
-
-            //paste
-            document.getElementById('pasteButton').addEventListener('click', function() {
-                navigator.clipboard.readText().then(function(text) {
-                    input.value = text;
-                    update();
-                });
-            });
-
-            //Copy 
-            document.getElementById('copyButton').addEventListener('click', function() {
-                output.select();
-                document.execCommand('copy');
-            });
-
-            //Clear 
-            document.getElementById('clearButton').addEventListener('click', function() {
-                input.value = '';
+        
+        function update() {
+            var htmlInput = input.value.trim(); 
+            if (htmlInput) {
+                output.value = turndownService.turndown(htmlInput); 
+            } else {
                 output.value = '';
+            }
+        }
+
+ 
+        function options() {
+            var opts = {
+                headingStyle: 'atx', 
+                hr: '-',            
+                bulletListMarker: '*' 
+            };
+
+            Array.from(optionsForm).forEach(function (input) {
+                if (input.checked) {
+                    opts[input.name] = input.value; 
+                }
             });
 
-            //Download 
-            document.getElementById('downloadButton').addEventListener('click', function() {
-                const blob = new Blob([output.value], { type: 'text/markdown' });
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = 'README.md';
-                a.click();
+            return opts;
+        }
+
+     
+        function setInitialOptions() {
+            var defaults = options(); 
+
+            Array.from(optionsForm).forEach(function (radio) {
+                if (defaults[radio.name] === radio.value) {
+                    radio.checked = true;
+                }
             });
-        })();
+        }
+    })();
     </script>
 </body>
 </html>
+
