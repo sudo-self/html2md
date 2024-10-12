@@ -152,7 +152,7 @@
                 output.value = turndownService.turndown(input.value);
             }
 
-            // ptions
+            //options
             function options() {
                 var opts = {};
                 Array.from(optionsForm).forEach(function (input) {
@@ -161,7 +161,7 @@
                 return opts;
             }
 
-            // paste
+            //paste
             document.getElementById('pasteButton').addEventListener('click', function() {
                 navigator.clipboard.readText().then(function(text) {
                     input.value = text;
@@ -169,19 +169,19 @@
                 });
             });
 
-            // Copy 
+            //Copy 
             document.getElementById('copyButton').addEventListener('click', function() {
                 output.select();
                 document.execCommand('copy');
             });
 
-            // Clear 
+            //Clear 
             document.getElementById('clearButton').addEventListener('click', function() {
                 input.value = '';
                 output.value = '';
             });
 
-            // Download 
+            //Download 
             document.getElementById('downloadButton').addEventListener('click', function() {
                 const blob = new Blob([output.value], { type: 'text/markdown' });
                 const a = document.createElement('a');
