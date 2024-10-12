@@ -3,21 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML TO Markdown</title>
-    
-
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
-
-    <link rel="manifest" href="/site.webmanifest">
-    
- 
+    <title>HTML to Markdown Converter</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
-    
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
@@ -29,11 +17,11 @@
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
-    <header class="bg-gray-800 shadow p-4 text-center">
+    <header class="bg-gray-900 shadow p-4 text-center">
         <h1 class="text-2xl font-bold">HTML TO Markdown</h1>
 
         <a href="https://github.com/sudo-self/html2md" target="_blank"
-           class="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 rounded mb-4 flex items-center justify-center">
+           class="w-full bg-gray-900 text-blue-400 font-semibold py-3 rounded mb-4 flex items-center justify-center">
             <img src="https://img.icons8.com/ios-filled/20/ffffff/github.png" alt="GitHub Star" class="icon" />
             <span class="ml-2">GitHub</span>
         </a>
@@ -42,58 +30,52 @@
     <div class="container mx-auto mt-6 p-4 bg-gray-800 rounded-lg shadow flex-grow flex flex-col">
         <div class="flex flex-col md:flex-row flex-grow">
             <div class="flex-1">
-                <label for="input" class="block text-sm font-semibold mb-2">HTML</label>
+                <label for="input" class="block text-sm font-semibold mb-2">HTML Input</label>
                 <textarea id="input" rows="15" class="w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-300" placeholder="Enter HTML here...">
 <h1>This is a heading</h1>
-<p>This is a paragraph</p>
-<hr />
-<ol>
-    <li>milk</li>
-    <li>eggs</li>
-    <li>butter</li>
-</ol>
-<img src='/favicon.png' alt='favicon' width='20px' height='auto'></img>
+<p>This is a paragraph.</p>
+<hr>
+<ul>
+    <li>Milk</li>
+    <li>Eggs</li>
+    <li>Butter</li>
+</ul>
                 </textarea>
             </div>
 
             <div class="flex flex-col justify-center mx-4">
-           
                 <button id="pasteButton" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/paste.png" alt="Paste" class="icon" />
                     <span class="ml-2">Paste&nbsp;</span>
                 </button>
 
-           
                 <button id="copyButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/copy.png" alt="Copy" class="icon" />
                     <span class="ml-2">Copy&nbsp;</span>
                 </button>
 
-             
                 <button id="clearButton" class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/trash.png" alt="Clear" class="icon" />
                     <span class="ml-2">Clear&nbsp;</span>
                 </button>
 
-          
                 <button id="downloadButton" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/download.png" alt="Download" class="icon" />
-                    <span class="ml-2">Down</span>
+                    <span class="ml-2">Down&nbsp;</span>
                 </button>
             </div>
 
             <div class="flex-1">
-                <label for="output" class="block text-sm font-semibold mb-2">Markdown</label>
+                <label for="output" class="block text-sm font-semibold mb-2">Markdown Output</label>
                 <textarea id="output" rows="15" class="w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-lg p-2 focus:outline-none" readonly></textarea>
             </div>
         </div>
 
         <div class="mt-6 flex flex-wrap justify-between">
-  
             <div class="mb-4">
                 <span class="block text-sm font-semibold mb-2">Heading Style</span>
                 <label class="inline-flex items-center mr-4">
-                    <input type="radio" name="headingStyle" value="atx" class="form-radio text-blue-600">
+                    <input type="radio" name="headingStyle" value="atx" class="form-radio text-blue-600" checked>
                     <span class="ml-2">ATX</span>
                 </label>
                 <label class="inline-flex items-center">
@@ -105,7 +87,7 @@
             <div class="mb-4">
                 <span class="block text-sm font-semibold mb-2">Horizontal Rule</span>
                 <label class="inline-flex items-center mr-4">
-                    <input type="radio" name="hr" value="*" class="form-radio text-blue-600">
+                    <input type="radio" name="hr" value="*" class="form-radio text-blue-600" checked>
                     <span class="ml-2">Asterisk (*)</span>
                 </label>
                 <label class="inline-flex items-center">
@@ -117,7 +99,7 @@
             <div class="mb-4">
                 <span class="block text-sm font-semibold mb-2">Bullet List Marker</span>
                 <label class="inline-flex items-center mr-4">
-                    <input type="radio" name="bulletListMarker" value="*" class="form-radio text-blue-600">
+                    <input type="radio" name="bulletListMarker" value="*" class="form-radio text-blue-600" checked>
                     <span class="ml-2">Asterisk (*)</span>
                 </label>
                 <label class="inline-flex items-center">
@@ -131,21 +113,18 @@
             </div>
         </div>
     </div>
-    
-    <footer class="mt-6 text-center text-sm text-gray-400">
-        <p>HTML 2 Markdown&nbsp;<a href="https://github.com/sudo-self/html2md" class="text-blue-400 hover:underline">sudo-self/html2md</a>&nbsp;MIT license.&nbsp;&copy;2024</p>
+
+    <footer class="mt-6 text-center text-sm text-blue-400">
+        <p><a href="https://github.com/sudo-self/html2md">HTML2MD - © 2024</p>
     </footer>
 
     <script>
-    ;(function () {
+    (function () {
         var input = document.getElementById('input');
         var output = document.getElementById('output');
         var optionsForm = document.querySelectorAll('input[type="radio"]');
-
-     
         var turndownService = new window.TurndownService(options());
 
-   
         setInitialOptions();
 
         input.addEventListener('input', update);
@@ -159,36 +138,27 @@
 
         update();
 
-        
         function update() {
-            var htmlInput = input.value.trim(); 
+            var htmlInput = input.value.trim();
             if (htmlInput) {
-                output.value = turndownService.turndown(htmlInput); 
+                output.value = turndownService.turndown(htmlInput);
             } else {
                 output.value = '';
             }
         }
 
- 
         function options() {
             var opts = {
-                headingStyle: 'atx', 
-                hr: '-',            
-                bulletListMarker: '*' 
+                headingStyle: document.querySelector('input[name="headingStyle"]:checked').value,
+                hr: document.querySelector('input[name="hr"]:checked').value,
+                bulletListMarker: document.querySelector('input[name="bulletListMarker"]:checked').value,
             };
-
-            Array.from(optionsForm).forEach(function (input) {
-                if (input.checked) {
-                    opts[input.name] = input.value; 
-                }
-            });
 
             return opts;
         }
 
-     
         function setInitialOptions() {
-            var defaults = options(); 
+            var defaults = options();
 
             Array.from(optionsForm).forEach(function (radio) {
                 if (defaults[radio.name] === radio.value) {
@@ -196,6 +166,36 @@
                 }
             });
         }
+
+        document.getElementById('pasteButton').addEventListener('click', function() {
+            navigator.clipboard.readText().then(function(text) {
+                input.value = text;
+                update();
+            }).catch(function(err) {
+                console.error('Failed to read clipboard: ', err);
+            });
+        });
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            navigator.clipboard.writeText(output.value).then(function() {
+                alert('Copied to clipboard!');
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        });
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            input.value = '';
+            output.value = '';
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            const blob = new Blob([output.value], { type: 'text/markdown' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'README.md';
+            link.click();
+        });
     })();
     </script>
 </body>
