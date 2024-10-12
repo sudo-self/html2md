@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="any" href="apple-touch-icon.png">
+  <link rel="icon" sizes="32x32" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" sizes="192x192" href="icon192.png">
+  <link rel="icon" sizes="512x512" href="icon512.png">
+  <title>HTML Encoder</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+    .encoderButton {
+      background-color: #6d28d9;
+      color: #fff;
+    }
+    body, .bg-gray-800 {
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col justify-center items-center">
+  <div class="bg-gray-800 shadow-lg rounded-lg p-6 w-full max-w-2xl">
+    <h1 class="text-2xl font-bold mb-4">HTML Encoder</h1>
+    <div class="flex justify-between items-center mb-4">
+      <div class="flex items-center">
+        <input type="checkbox" id="theme-toggle" class="toggle-checkbox hidden" />
+        <label for="theme-toggle" class="cursor-pointer">
+          <div class="toggle-label bg-gray-300 rounded-full w-10 h-5 flex items-center p-1">
+            <div class="toggle-circle bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-200"></div>
+          </div>
+        </label>
+      </div>
+      <a href="https://github.com/sudo-self/html2md" target="_blank" class="w-half text-blue-400 font-semibold py-3 rounded mb-4 flex items-center justify-center">
+        <img src="https://img.icons8.com/ios-filled/20/ffffff/github.png" alt="GitHub Star" class="icon" />
+        <span class="ml-2">GitHub</span>
+      </a>
+    </div>
+
+    <label for="input" class="sr-only">Input</label>
+    <textarea id="input" placeholder="Type something..." class="w-full p-3 border border-gray-600 rounded-md focus:ring-2 focus:ring-indigo-500 mb-4 h-40 resize-none bg-gray-700 text-gray-100"></textarea>
+
+    <pre id="output" class="bg-gray-900 text-gray-100 p-4 rounded-md whitespace-pre-wrap break-words mb-4 h-40 overflow-y-auto"></pre>
+
+    <div class="flex justify-end space-x-4">
+      <button id="encoderButton" class="w-full bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center" onclick="window.location.href='index.html'">
+        <img src="https://img.icons8.com/ios-filled/20/ffffff/code-file.png" alt="Encoder" class="icon" />
+        <span class="ml-2">Markdown&nbsp;</span>
+      </button>
+
+      <button id="pasteButton" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
+        <img src="https://img.icons8.com/ios-filled/20/ffffff/paste.png" alt="Paste" class="icon" />
+        <span class="ml-2">Paste&nbsp;</span>
+      </button>
+
+      <button id="copyButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center" disabled>
+        <img src="https://img.icons8.com/ios-filled/20/ffffff/copy.png" alt="Copy" class="icon" />
+        <span class="ml-2">Copy&nbsp;</span>
+      </button>
+
+      <button id="clearButton" class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
+        <img src="https://img.icons8.com/ios-filled/20/ffffff/trash.png" alt="Clear" class="icon" />
+        <span class="ml-2">Clear&nbsp;</span>
+      </button>
+
+      <button id="downloadButton" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center" disabled>
+        <img src="https://img.icons8.com/ios-filled/20/ffffff/download.png" alt="Download" class="icon" />
+        <span class="ml-2">Download&nbsp;</span>
+      </button>
+    </div>
+
+  </div>
+
+  <div id="snackbar" class="fixed bottom-5 right-5 bg-green-600 text-white p-3 rounded-md hidden">Copied!</div>
+
+  <footer class="mt-6 text-center text-sm text-blue-400">
+      <p><a href="https://github.com/sudo-self/html2md">HTML2MD - © 2024</a></p>
+  </footer>
+
+  <script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+    const copyButton = document.getElementById('copyButton');
+    const clearButton = document.getElementById('clearButton');
+    const downloadButton = document.getElementById('downloadButton');
+    const themeToggle = document.getElementById('theme-toggle');
+    const snackbar = document.getElementById('snackbar');
+
+    function encodeToHTMLEntities(text) {
+      return text.split('').map(char => `&#${char.charCodeAt(0)};`).join('');
+    }
+
+    input.addEventListener('input', function () {
+      output.textContent = encodeToHTMLEntities(input.value);
+      const isDisabled = output.textContent.trim() === '';
+      copyButton.disabled = isDisabled;
+      clearButton.disabled = isDisabled;
+      downloadButton.disabled = isDisabled;
+    });
+
+    copyButton.addEventListener('click', function () {
+      if (!output.textContent.trim()) return;
+      const encodedText = output.textContent;
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = encodedText;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      // Snackbar
+      snackbar.classList.remove('hidden');
+      setTimeout(() => snackbar.classList.add('hidden'), 2000); // 2 seconds
+    });
+
+    clearButton.addEventListener('click', function () {
+      input.value = '';
+      output.textContent = '';
+      copyButton.disabled = true;
+      clearButton.disabled = true;
+      downloadButton.disabled = true;
+    });
+
+    downloadButton.addEventListener('click', function () {
+      if (!output.textContent.trim()) return;
+      const encodedText = output.textContent.replace(/\n/g, '<br/>');
+      const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Entity Encoder</title>
+</head>
+<body>
+${encodedText}
+</body>
+</html>`;
+      
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'encoded.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    themeToggle.addEventListener('change', function () {
+      document.body.classList.toggle('bg-gray-900');
+      document.body.classList.toggle('bg-gray-100');
+      document.querySelector('.bg-gray-800').classList.toggle('bg-gray-700');
+      document.querySelector('.toggle-circle').classList.toggle('translate-x-5');
+      themeToggle.checked ? localStorage.setItem('theme', 'dark') : localStorage.setItem('theme', 'light');
+
+      const inputField = document.getElementById('input');
+      const outputField = document.getElementById('output');
+
+      inputField.classList.toggle('bg-gray-700');
+      inputField.classList.toggle('bg-gray-200');
+      outputField.classList.toggle('bg-gray-900');
+      outputField.classList.toggle('bg-gray-300');
+
+      inputField.classList.toggle('text-gray-100');
+      inputField.classList.toggle('text-gray-900');
+      outputField.classList.toggle('text-gray-100');
+      outputField.classList.toggle('text-gray-900');
+    });
+
+    window.addEventListener('load', function () {
+      const theme = localStorage.getItem('theme') || 'light';
+      if (theme === 'dark') {
+        themeToggle.checked = true;
+        themeToggle.dispatchEvent(new Event('change'));
+      }
+    });
+  </script>
+</body>
+</html>
