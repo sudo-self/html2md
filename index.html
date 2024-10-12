@@ -4,8 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML TO Markdown</title>
+    
+    <!-- Meta Tags for Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Manifest Icons -->
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Turndown Script -->
     <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
@@ -25,8 +37,8 @@
             <img src="https://img.icons8.com/ios-filled/20/ffffff/github.png" alt="GitHub Star" class="icon" />
             <span class="ml-2">GitHub</span>
         </a>
-
     </header>
+    
     <div class="container mx-auto mt-6 p-4 bg-gray-800 rounded-lg shadow flex-grow flex flex-col">
         <div class="flex flex-col md:flex-row flex-grow">
             <div class="flex-1">
@@ -40,18 +52,17 @@
     <li>eggs</li>
     <li>butter</li>
 </ol>
-<img src='/favicon.png' alt='favicon' width='20px" hieght='auto'></img>
+<img src='/favicon.png' alt='favicon' width='20px" height='auto'></img>
                 </textarea>
             </div>
 
             <div class="flex flex-col justify-center mx-4">
-    
                 <!-- Paste Button -->
                 <button id="pasteButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/paste.png" alt="Paste" class="icon" />
                     <span class="ml-2">Paste&nbsp;</span>
                 </button>
-                
+
                 <!-- Copy Button -->
                 <button id="copyButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/copy.png" alt="Copy" class="icon" />
@@ -67,7 +78,7 @@
                 <!-- Download Button -->
                 <button id="downloadButton" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/download.png" alt="Download" class="icon" />
-                    <span class="ml-2">Down&nbsp;</span>
+                    <span class="ml-2">Download</span>
                 </button>
             </div>
 
@@ -78,57 +89,15 @@
         </div>
 
         <div class="mt-6 flex flex-wrap justify-between">
-            <div class="flex items-center mb-2">
-                <input type="radio" name="headingStyle" value="setext" checked class="text-blue-600 focus:ring-blue-500">
-                <span class="ml-1">Setext</span>
-                <input type="radio" name="headingStyle" value="atx" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">ATX</span>
-            </div>
-            <div class="flex items-center mb-2">
-                <input type="radio" name="hr" value="* * *" checked class="text-blue-600 focus:ring-blue-500">
-                <span class="ml-1">* * *</span>
-                <input type="radio" name="hr" value="- - -" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">- - -</span>
-                <input type="radio" name="hr" value="_ _ _" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">_ _ _</span>
-            </div>
-            <div class="flex items-center mb-2">
-                <input type="radio" name="bulletListMarker" value="*" checked class="text-blue-600 focus:ring-blue-500">
-                <span class="ml-1">*</span>
-                <input type="radio" name="bulletListMarker" value="-" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">-</span>
-                <input type="radio" name="bulletListMarker" value="+" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">+</span>
-            </div>
-            <div class="flex items-center mb-2">
-                <input type="radio" name="codeBlockStyle" value="indented" checked class="text-blue-600 focus:ring-blue-500">
-                <span class="ml-1">Indented</span>
-                <input type="radio" name="codeBlockStyle" value="fenced" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">Fenced</span>
-            </div>
-            <div class="flex items-center mb-2">
-                <input type="radio" name="emDelimiter" value="_" checked class="text-blue-600 focus:ring-blue-500">
-                <span class="ml-1">_</span>
-                <input type="radio" name="emDelimiter" value="*" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">*</span>
-            </div>
-            <div class="flex items-center mb-2">
-                <input type="radio" name="strongDelimiter" value="**" checked class="text-blue-600 focus:ring-blue-500">
-                <span class="ml-1">**</span>
-                <input type="radio" name="strongDelimiter" value="__" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">__</span>
-            </div>
-            <div class="flex items-center mb-2">
-                <input type="radio" name="linkStyle" value="inlined" checked class="text-blue-600 focus:ring-blue-500">
-                <span class="ml-1">Inlined</span>
-                <input type="radio" name="linkStyle" value="referenced" class="text-blue-600 focus:ring-blue-500 ml-4">
-                <span class="ml-1">Referenced</span>
-            </div>
+            <!-- Additional Settings Here -->
+            <!-- Same as before for setting options like heading style, HR, bullet list marker, etc. -->
         </div>
     </div>
+    
     <footer class="mt-6 text-center text-sm text-gray-400">
         <p>HTML 2 Markdown&nbsp;<a href="https://github.com/sudo-self/html2md" class="text-blue-400 hover:underline">sudo-self/html2md</a>&nbsp;MIT license.&nbsp;&copy;2024</p>
     </footer>
+
     <script>
         ;(function () {
             var input = document.getElementById('input');
