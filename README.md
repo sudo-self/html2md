@@ -20,19 +20,15 @@ The HTML to Markdown Converter is a web-based tool that allows users to convert 
 *   **JavaScript:** For interactivity and conversion functionality.
 *   **Turndown:** A JavaScript library for converting HTML to Markdown.
 *   **Custom HTML Encoder:** Integration with an external encoder tool for encoding HTML entities.
+<hr>
+<img width="1440" alt="markdown" src="https://github.com/user-attachments/assets/2f707579-92ed-4d7a-b818-f75cb228f154">
+<img width="1440" alt="encoder" src="https://github.com/user-attachments/assets/a0c7c575-166b-4bf5-a98f-cf12da698b04">
 
 
 
-### Prerequisites
 
-A modern web browser (Chrome, Firefox, Safari, etc.)
 
-## Usage
 
-1.  **Paste or Type HTML:** Enter your HTML content in the "HTML Input" text area.
-2.  **Select Options:** Choose the desired heading style, horizontal rule type, and bullet list marker using the radio buttons.
-3.  **View Output:** The converted Markdown will appear in the "Markdown Output" text area.
-4.  **Copy or Download:** Use the buttons to copy the Markdown output to your clipboard or download it as a `.md` file.
 
 ## License
 
