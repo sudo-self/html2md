@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML TO Markdown</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
+    <header class="bg-gray-800 shadow p-4 text-center">
+        <h1 class="text-2xl font-bold">HTML TO Markdown</h1>
+        <!-- GitHub Star Button -->
+        <a href="https://github.com/sudo-self/html2md" target="_blank"
+           class="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 rounded mb-4 flex items-center justify-center">
+            <img src="https://img.icons8.com/ios-filled/20/ffffff/github.png" alt="GitHub Star" class="icon" />
+            <span class="ml-2">GitHub</span>
+        </a>
+
+    </header>
+    <div class="container mx-auto mt-6 p-4 bg-gray-800 rounded-lg shadow flex-grow flex flex-col">
+        <div class="flex flex-col md:flex-row flex-grow">
+            <div class="flex-1">
+                <label for="input" class="block text-sm font-semibold mb-2">HTML</label>
+                <textarea id="input" rows="15" class="w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-300" placeholder="Enter HTML here...">
+<h1>This is a heading</h1>
+<p>This is a paragraph</p>
+<hr />
+<ol>
+    <li>milk</li>
+    <li>eggs</li>
+    <li>butter</li>
+</ol>
+<img src='/favicon.png' alt='favicon' width='20px" hieght='auto'></img>
+                </textarea>
+            </div>
+
+            <div class="flex flex-col justify-center mx-4">
+    
+                <!-- Paste Button -->
+                <button id="pasteButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
+                    <img src="https://img.icons8.com/ios-filled/20/ffffff/paste.png" alt="Paste" class="icon" />
+                    <span class="ml-2">Paste&nbsp;</span>
+                </button>
+                
+                <!-- Copy Button -->
+                <button id="copyButton" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
+                    <img src="https://img.icons8.com/ios-filled/20/ffffff/copy.png" alt="Copy" class="icon" />
+                    <span class="ml-2">Copy&nbsp;</span>
+                </button>
+
+                <!-- Clear Button -->
+                <button id="clearButton" class="w-full bg-red-700 hover:bg-red-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
+                    <img src="https://img.icons8.com/ios-filled/20/ffffff/trash.png" alt="Clear" class="icon" />
+                    <span class="ml-2">Clear&nbsp;</span>
+                </button>
+
+                <!-- Download Button -->
+                <button id="downloadButton" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded flex items-center justify-center">
+                    <img src="https://img.icons8.com/ios-filled/20/ffffff/download.png" alt="Download" class="icon" />
+                    <span class="ml-2">Down&nbsp;</span>
+                </button>
+            </div>
+
+            <div class="flex-1">
+                <label for="output" class="block text-sm font-semibold mb-2">Markdown</label>
+                <textarea id="output" rows="15" class="w-full border border-gray-600 bg-gray-700 text-gray-300 rounded-lg p-2 focus:outline-none" readonly></textarea>
+            </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap justify-between">
+            <div class="flex items-center mb-2">
+                <input type="radio" name="headingStyle" value="setext" checked class="text-blue-600 focus:ring-blue-500">
+                <span class="ml-1">Setext</span>
+                <input type="radio" name="headingStyle" value="atx" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">ATX</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="radio" name="hr" value="* * *" checked class="text-blue-600 focus:ring-blue-500">
+                <span class="ml-1">* * *</span>
+                <input type="radio" name="hr" value="- - -" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">- - -</span>
+                <input type="radio" name="hr" value="_ _ _" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">_ _ _</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="radio" name="bulletListMarker" value="*" checked class="text-blue-600 focus:ring-blue-500">
+                <span class="ml-1">*</span>
+                <input type="radio" name="bulletListMarker" value="-" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">-</span>
+                <input type="radio" name="bulletListMarker" value="+" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">+</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="radio" name="codeBlockStyle" value="indented" checked class="text-blue-600 focus:ring-blue-500">
+                <span class="ml-1">Indented</span>
+                <input type="radio" name="codeBlockStyle" value="fenced" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">Fenced</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="radio" name="emDelimiter" value="_" checked class="text-blue-600 focus:ring-blue-500">
+                <span class="ml-1">_</span>
+                <input type="radio" name="emDelimiter" value="*" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">*</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="radio" name="strongDelimiter" value="**" checked class="text-blue-600 focus:ring-blue-500">
+                <span class="ml-1">**</span>
+                <input type="radio" name="strongDelimiter" value="__" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">__</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <input type="radio" name="linkStyle" value="inlined" checked class="text-blue-600 focus:ring-blue-500">
+                <span class="ml-1">Inlined</span>
+                <input type="radio" name="linkStyle" value="referenced" class="text-blue-600 focus:ring-blue-500 ml-4">
+                <span class="ml-1">Referenced</span>
+            </div>
+        </div>
+    </div>
+    <footer class="mt-6 text-center text-sm text-gray-400">
+        <p>HTML 2 Markdown&nbsp;<a href="https://github.com/sudo-self/html2md" class="text-blue-400 hover:underline">sudo-self/html2md</a>&nbsp;MIT license.&nbsp;&copy;2024</p>
+    </footer>
+    <script>
+        ;(function () {
+            var input = document.getElementById('input');
+            var output = document.getElementById('output');
+            var optionsForm = document.querySelectorAll('input[type="radio"]');
+
+            var turndownService = new window.TurndownService(options());
+
+            input.addEventListener('input', update);
+
+            Array.from(optionsForm).forEach(function(radio) {
+                radio.addEventListener('change', function () {
+                    update();
+                });
+            });
+
+            update();
+
+            // output
+            function update() {
+                output.value = turndownService.turndown(input.value);
+            }
+
+            // ptions
+            function options() {
+                var opts = {};
+                Array.from(optionsForm).forEach(function (input) {
+                    opts[input.name] = input.value;
+                });
+                return opts;
+            }
+
+            // paste
+            document.getElementById('pasteButton').addEventListener('click', function() {
+                navigator.clipboard.readText().then(function(text) {
+                    input.value = text;
+                    update();
+                });
+            });
+
+            // Copy 
+            document.getElementById('copyButton').addEventListener('click', function() {
+                output.select();
+                document.execCommand('copy');
+            });
+
+            // Clear 
+            document.getElementById('clearButton').addEventListener('click', function() {
+                input.value = '';
+                output.value = '';
+            });
+
+            // Download 
+            document.getElementById('downloadButton').addEventListener('click', function() {
+                const blob = new Blob([output.value], { type: 'text/markdown' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'README.md';
+                a.click();
+            });
+        })();
+    </script>
+</body>
+</html>
