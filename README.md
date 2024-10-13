@@ -1,5 +1,6 @@
 # HTML to Markdown Encoder
-## <a href="https://sudo-self.github.io/html2md/">HTML2MD</a>
+[![Deploy static content to Pages](https://github.com/sudo-self/html2md/actions/workflows/static.yml/badge.svg)](https://github.com/sudo-self/html2md/actions/workflows/static.yml)
+## <a href="https://sudo-self.github.io/html2md/">HTML2MD</a><hr>
 
 The HTML to Markdown Converter is a web-based tool that allows users to convert HTML content into Markdown format easily. The application provides an intuitive interface for pasting HTML code, selecting conversion options, and viewing the Markdown output in real time. Users can copy the converted Markdown to their clipboard or download it as a `.md` file.
 
@@ -35,5 +36,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Acknowledgments
 
-*   [Turndown](https://github.com/domchristie/turndown): For the HTML to Markdown conversion library.
-*   [Tailwind CSS](https://tailwindcss.com/): For the styling framework.
+*   [Turndown](https://github.com/domchristie/turndown):&nbsp;For the HTML to Markdown conversion library.
+*   [Tailwind CSS](https://tailwindcss.com/):&nbsp;For the styling framework.
+
