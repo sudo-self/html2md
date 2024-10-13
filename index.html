@@ -24,7 +24,6 @@
 <body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col">
     <header class="bg-gray-900 shadow p-4 text-center">
         <h1 class="text-2xl font-bold">HTML Markdown Encoder</h1>
-
         <a href="https://github.com/sudo-self/html2md" target="_blank"
            class="w-full bg-gray-900 text-blue-400 font-semibold py-3 rounded mb-4 flex items-center justify-center">
             <img src="https://img.icons8.com/ios-filled/20/ffffff/github.png" alt="GitHub Star" class="icon" />
@@ -40,28 +39,28 @@
 <h1>This is a heading</h1>
 <p>password: 12345678</p>
 <hr>
-<ul>
+<bl>
     <li>Milk</li>
     <li>Eggs</li>
     <li>Butter</li>
-</ul>
+</bl>
+<hr>
+The code tag
+<code>12345678<code>
                 </textarea>
             </div>
 
             <div class="flex flex-col justify-center mx-4">
-            
-            
-            <button id="encryptButton" class="w-full bg-stone-900 hover:bg-stone-950 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center" onclick="checkPassword()">
-    <img src="https://img.icons8.com/ios-filled/20/ffffff/lock.png" alt="Encrypt" class="icon" />
-    <span class="ml-2">Encrypt&nbsp;</span>
-</button>
-            
-                <button id="encoderButton" class="w-full bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center"  onclick="window.location.href='encoder.html'">
+                <button id="encryptButton" class="w-full bg-stone-900 hover:bg-stone-950 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center" onclick="checkPassword()">
+                    <img src="https://img.icons8.com/ios-filled/20/ffffff/lock.png" alt="Encrypt" class="icon" />
+                    <span class="ml-2">Encrypt&nbsp;</span>
+                </button>
+                
+                <button id="encoderButton" class="w-full bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center" onclick="window.location.href='encoder.html'">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/code-file.png" alt="Encoder" class="icon" />
                     <span class="ml-2">Encoder&nbsp;</span>
                 </button>
 
-                
                 <button id="pasteButton" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 rounded mb-2 flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/paste.png" alt="Paste" class="icon" />
                     <span class="ml-2">Paste&nbsp;</span>
@@ -79,7 +78,7 @@
 
                 <button id="downloadButton" class="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded flex items-center justify-center">
                     <img src="https://img.icons8.com/ios-filled/20/ffffff/download.png" alt="Download" class="icon" />
-                    <span class="ml-2">Down&nbsp;</span>
+                    <span class="ml-2">Download&nbsp;</span>
                 </button>
             </div>
 
@@ -133,14 +132,11 @@
     </div>
 
     <footer class="mt-6 text-center text-sm text-blue-400">
-        <p><a href="https://sudo-self.github.io/html2md">HTML2MD - © 2024</p>
+        <p><a href="https://sudo-self.github.io/html2md">HTML Markdown Encoder - © 2024</a></p>
     </footer>
 
     <script>
-    
-    
-    
-     function checkPassword() {
+        function checkPassword() {
         const password = prompt("Please enter the password to continue:");
         if (password === "12345678") { 
             window.location.href = 'encrypt.html';
@@ -148,13 +144,22 @@
             alert("Incorrect password. Please try again.");
         }
     }
-    
-    
+
     (function () {
         var input = document.getElementById('input');
         var output = document.getElementById('output');
         var optionsForm = document.querySelectorAll('input[type="radio"]');
         var turndownService = new window.TurndownService(options());
+
+        // Add custom rule for <pre><code> tags
+        turndownService.addRule('preCode', {
+            filter: ['pre'],
+            replacement: function (content) {
+                // Extract content from <code> tag, if exists
+                const codeContent = content.match(/<code>(.*?)<\/code>/s);
+                return '```\n' + (codeContent ? codeContent[1] : content) + '\n```\n';
+            }
+        });
 
         setInitialOptions();
 
@@ -182,53 +187,19 @@
             var opts = {
                 headingStyle: document.querySelector('input[name="headingStyle"]:checked').value,
                 hr: document.querySelector('input[name="hr"]:checked').value,
-                bulletListMarker: document.querySelector('input[name="bulletListMarker"]:checked').value,
+                bulletListMarker: document.querySelector('input[name="bulletListMarker"]:checked').value
             };
-
             return opts;
         }
 
         function setInitialOptions() {
-            var defaults = options();
-
             Array.from(optionsForm).forEach(function (radio) {
-                if (defaults[radio.name] === radio.value) {
-                    radio.checked = true;
+                if (radio.checked) {
+                    radio.dispatchEvent(new Event('change'));
                 }
             });
         }
-
-        document.getElementById('pasteButton').addEventListener('click', function() {
-            navigator.clipboard.readText().then(function(text) {
-                input.value = text;
-                update();
-            }).catch(function(err) {
-                console.error('Failed to read clipboard: ', err);
-            });
-        });
-
-        document.getElementById('copyButton').addEventListener('click', function() {
-            navigator.clipboard.writeText(output.value).then(function() {
-                alert('Copied to clipboard!');
-            }).catch(function(err) {
-                console.error('Failed to copy: ', err);
-            });
-        });
-
-        document.getElementById('clearButton').addEventListener('click', function() {
-            input.value = '';
-            output.value = '';
-        });
-
-        document.getElementById('downloadButton').addEventListener('click', function() {
-            const blob = new Blob([output.value], { type: 'text/markdown' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'README.md';
-            link.click();
-        });
     })();
     </script>
 </body>
 </html>
-
