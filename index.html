@@ -200,6 +200,35 @@ The code tag
             });
         }
     })();
+
+
+    document.getElementById('copyButton').addEventListener('click', function () {
+        var output = document.getElementById('output');
+        output.select();
+        document.execCommand('copy');
+        alert('Markdown copied to clipboard!');
+    });
+
+ 
+    document.getElementById('clearButton').addEventListener('click', function () {
+        document.getElementById('input').value = '';
+        document.getElementById('output').value = '';
+    });
+
+
+    document.getElementById('downloadButton').addEventListener('click', function () {
+        var markdownContent = document.getElementById('output').value;
+        if (markdownContent.trim() === '') {
+            alert('No Markdown content to download!');
+            return;
+        }
+        var blob = new Blob([markdownContent], { type: 'text/markdown' });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'output.md';
+        link.click();
+    });
+        
     </script>
 </body>
 </html>
